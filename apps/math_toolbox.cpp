@@ -910,9 +910,10 @@ const ToolboxMessageTree Physics[] = {
 };
 
 const ToolboxMessageTree menu[] = {
-  ToolboxMessageTree::Node(I18n::Message::Physics, Physics),
-  ToolboxMessageTree::Node(I18n::Message::Chemistry, chemistry),
-  ToolboxMessageTree::Node(I18n::Message::Sii, Sii),
+  #ifdef _FXCG
+  // There is no factorial button on the fx-CG calculators
+  ToolboxMessageTree::Leaf(I18n::Message::FactorialCommandWithArg, I18n::Message::Factorial, false, I18n::Message::FactorialCommand),
+  #endif
   ToolboxMessageTree::Leaf(I18n::Message::AbsCommandWithArg, I18n::Message::AbsoluteValue),
   ToolboxMessageTree::Leaf(I18n::Message::RootCommandWithArg, I18n::Message::NthRoot),
   ToolboxMessageTree::Leaf(I18n::Message::LogCommandWithArg, I18n::Message::BasedLogarithm),
@@ -928,7 +929,10 @@ const ToolboxMessageTree menu[] = {
   ToolboxMessageTree::Node(I18n::Message::Combinatorics, combinatoricsChildren),
   ToolboxMessageTree::Node(I18n::Message::RandomAndApproximation, randomAndApproximationChildren),
   ToolboxMessageTree::Node(I18n::Message::HyperbolicTrigonometry, trigonometryChildren),
-  ToolboxMessageTree::Node(I18n::Message::Fluctuation, predictionChildren)
+  ToolboxMessageTree::Node(I18n::Message::Fluctuation, predictionChildreni)
+  ToolboxMessageTree::Node(I18n::Message::Physics, Physics),
+  ToolboxMessageTree::Node(I18n::Message::Chemistry, chemistry),
+  ToolboxMessageTree::Node(I18n::Message::Sii, Sii)
   };
 
 const ToolboxMessageTree toolboxModel = ToolboxMessageTree::Node(I18n::Message::Toolbox, menu);
