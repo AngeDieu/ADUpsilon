@@ -10,8 +10,8 @@
 > Vous ne comprenez pas l'anglais ? Vous êtes francophone ? Regardez le [*LISEZ-MOI* français](./README.fr.md) !
 
 ## About
-
-Upsilon is a fork of Omega, an user-made OS that runs on the Numworks calculator, which brings many features to it, but was discontinued because of a policy change from Numworks. Upsilon is for the people who want to see a future for user-made OSes for Numworks, even after the closure and archiving of Omega.
+ADUpsilon is a fork of [Upsilon](https//github.com/Upsilon-Numworks/Upsilon) that seeks to add features that I either liked and cherry-picked from other Epsilon forks, or have coded myself.
+Keep in mind that this is a very lazy fork, intended mostly for personal use, so the instructions on building, while similar to Upsilon, might differ.
 
 This fork adds the following functions to the python modules:
 
@@ -28,7 +28,7 @@ This fork adds the following functions to the python modules:
 | escher | get_clipboard(text)  | Returns the clipboard's content                                                     | Works                     |
 
 
-### Some new features
+### Some new features of Upsilon
 
 - Enhancements for the Kandinsky python module
 - Support for wallpapers
