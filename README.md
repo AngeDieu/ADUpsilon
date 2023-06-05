@@ -263,7 +263,7 @@ You can now go to step 2!
 Clone repo and use 'upsilon-dev' branch by pasting these two commands:
 
 ```bash
-git clone --recursive https://github.com/Maxouille64/Upsilon.git
+git clone --recursive https://github.com/AngeDieu/ADUpsilon.git
 cd Upsilon
 git checkout upsilon-dev
 ```
@@ -279,14 +279,14 @@ git checkout upsilon-dev
 (note: you can change the `EPSILON_I18N=en` flag to `fr`, `nl`, `pt`, `it`, `de`, `es` or `hu`).
 
 ```bash
-make MODEL=n0100 clean
-make MODEL=n0100 EPSILON_I18N=en OMEGA_USERNAME="{Your name, max 15 characters}" -j(nproc)
+make PLATFORM=device MODEL=n0100 clean
+make PLATFORM=device MODEL=n0100 EPSILON_I18N=en OMEGA_USERNAME="{Your name, max 15 characters}" -j(nproc)
 ```
 
 Now, run either:
 
 ```bash
-make MODEL=n0100 epsilon_flash
+make PLATFORM=device MODEL=n0100 epsilon_flash
 ```
 
 to directly flash the calculator after pressing simultaneously `reset` and `6` buttons and plugging in.
@@ -296,7 +296,7 @@ to directly flash the calculator after pressing simultaneously `reset` and `6` b
 or:
 
 ```bash
-make MODEL=n0100 OMEGA_USERNAME="" binpack -j(nproc)
+make PLATFORM=device MODEL=n0100 OMEGA_USERNAME="" binpack -j(nproc)
 ```
 
 to make binpack which you can flash to the calculator from [Ti-planet's webDFU](https://ti-planet.github.io/webdfu_numworks/n0100/). Binpacks are a great way to share a custom build of Upsilonto friends.
@@ -316,8 +316,8 @@ Your calculator must already have been flashed with [Upsilon](https://getupsilon
 Then, build with:
 
 ```bash
-make clean
-make OMEGA_USERNAME="{Your name, max 15 characters}" -j(nproc)
+make PLATFORM=device clean
+make PLATFORM=device OMEGA_USERNAME="{Your name, max 15 characters}" -j(nproc)
 ```
 
 Now, run either:
@@ -333,7 +333,7 @@ to directly flash the calculator into the current slot, or thought bootloader's 
 or:
 
 ```bash
-make OMEGA_USERNAME="" binpack -j(nproc)
+make PLATFORM=device OMEGA_USERNAME="" binpack -j(nproc)
 ```
 
 to make binpack which you can flash to the calculator from [Ti-planet's webDFU](https://ti-planet.github.io/webdfu_numworks/n0110/). You'll find them at `output/release/device/bootloader/`. Binpacks are a great way to share a custom build of Upsilon to friends.
@@ -345,14 +345,14 @@ to make binpack which you can flash to the calculator from [Ti-planet's webDFU](
 <summary>Model N0110 legacy (deprecated, use bootloader instead for Epsilon protection)</summary>
 
 ```bash
-make MODEL=n0110 clean
-make MODEL=n0110 OMEGA_USERNAME="{Your name, max 15 characters}" -j(nproc)
+make PLATFORM=device MODEL=n0110 clean
+make PLATFORM=device MODEL=n0110 OMEGA_USERNAME="{Your name, max 15 characters}" -j(nproc)
 ```
 
 Now, run either:
 
 ```bash
-make MODEL=n0110 epsilon_flash
+make PLATFORM=device MODEL=n0110 epsilon_flash
 ```
 
 to directly flash the calculator after pressing simultaneously `reset` and `6` buttons and plugging in.
@@ -362,7 +362,7 @@ to directly flash the calculator after pressing simultaneously `reset` and `6` b
 or:
 
 ```bash
-make MODEL=n0110 OMEGA_USERNAME="" binpack -j(nproc)
+make PLATFORM=device MODEL=n0110 OMEGA_USERNAME="" binpack -j(nproc)
 ```
 
 to make binpack which you can flash to the calculator from [Ti-planet's webDFU](https://ti-planet.github.io/webdfu_numworks/n0110/). You'll find them at `output/release/device/bootloader/`. Binpacks are a great way to share a custom build of Upsilon to friends.
