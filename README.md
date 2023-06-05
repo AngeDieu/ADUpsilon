@@ -10,7 +10,7 @@
 > Vous ne comprenez pas l'anglais ? Vous êtes francophone ? Regardez le [*LISEZ-MOI* français](./README.fr.md) !
 
 ## About
-ADUpsilon is a fork of [Upsilon](https//github.com/Upsilon-Numworks/Upsilon) that seeks to add features that I either liked and cherry-picked from other Epsilon forks, or have coded myself.
+ADUpsilon is a fork of [Upsilon](https://github.com/UpsilonNumworks/Upsilon) that seeks to add features that I either liked and cherry-picked from other Upsilon forks, or have coded myself.
 Keep in mind that this is a very lazy fork, intended mostly for personal use, so the instructions on building, while similar to Upsilon, might differ.
 
 This fork adds the following functions to the python modules:
