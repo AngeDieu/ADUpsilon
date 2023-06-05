@@ -4,6 +4,7 @@ extern "C" {
 #include <py/runtime.h>
 }
 #include <ion.h>
+#include <kandinsky/color.h>
 #include "apps/apps_container.h"
 #include "apps/global_preferences.h"
 #include "port.h"
@@ -117,6 +118,66 @@ mp_obj_t modion_set_brightness(mp_obj_t brightness_mp){
     micropython_port_interrupt_if_needed();
     return mp_const_none;
   }
+}
+
+mp_obj_t modion_set_dfu(mp_obj_t b){
+  bool activate = (bool)mp_obj_get_int(b);
+  Ion::USB::DFU(activate);
+  micropython_port_interrupt_if_needed();
+  return mp_obj_new_bool(activate);
+}
+
+mp_obj_t modion_set_led_color(mp_obj_t r, mp_obj_t g, mp_obj_t b){
+  // https://github.com/UpsilonNumworks/Upsilon/blob/upsilon-dev/ion/include/ion/led.h
+  uint8_t color_r = mp_obj_int_get_uint_checked(r);
+  uint8_t color_g = mp_obj_int_get_uint_checked(g);
+  uint8_t color_b = mp_obj_int_get_uint_checked(b);
+
+  if (color_r > 255 || color_g > 255 || color_b > 255) {
+    mp_raise_ValueError("Color values must be between 0 and 255");
+  }else {
+    Ion::LED::setColor(KDColor::RGB888(color_r, color_g, color_b));
+    mp_obj_t colors[3] {mp_obj_new_int_from_uint(color_r), mp_obj_new_int_from_uint(color_g), mp_obj_new_int_from_uint(color_b)};
+    micropython_port_interrupt_if_needed();
+    return mp_obj_new_tuple(3, colors);
+  }
+}
+
+mp_obj_t modion_is_plugged() {
+  return mp_obj_new_bool(Ion::USB::isPlugged());
+}
+
+mp_obj_t modion_screen_off() {
+  Ion::Backlight::shutdown();
+  micropython_port_interrupt_if_needed();
+  return mp_const_none;
+}
+
+mp_obj_t modion_screen_on() {
+  Ion::Backlight::init();
+  return mp_const_none;
+}
+
+mp_obj_t modion_blink_led(mp_obj_t period) {
+  uint16_t p = mp_obj_int_get_uint_checked(period);
+  Ion::LED::setBlinking(p, 0.1f);
+  return mp_const_none;
+}
+
+
+mp_obj_t modion_is_screen_on() {
+  return mp_obj_new_bool(Ion::Backlight::isInitialized());
+}
+
+mp_obj_t modion_get_led_color() {
+  KDColor actuall_color = Ion::LED::getColor();
+  mp_obj_t colors[3] = {
+                        mp_obj_new_int_from_uint(actuall_color.red()),
+                        mp_obj_new_int_from_uint(actuall_color.green()),
+                        mp_obj_new_int_from_uint(actuall_color.blue())
+                        };
+  micropython_port_interrupt_if_needed();
+  return mp_obj_new_tuple(3, colors);
 }
 
 mp_obj_t modion_get_brightness(){
