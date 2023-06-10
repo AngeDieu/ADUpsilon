@@ -1,0 +1,36 @@
+name: Continuous integration
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron : "0 0 * * 1" #Run every mondays, to check if Omega hasn't changed to much
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install deps
+        run: sudo apt-get install build-essential imagemagick libfreetype6-dev libjpeg-dev libpng-dev pkg-config
+      - name: Checkout Omega
+        uses: actions/checkout@v2
+        with:
+          repository: 'Omega-Numworks/Omega'
+          ref: 'master'
+      - name: Patch apps_layout
+        run: |
+          cat > apps/home/apps_layout.csv << EOF
+          Default,calculation,atomic,graph,code,statistics,probability,solver,sequence,regression,settings
+          HidePython,calculation,atomic,graph,solver,statistics,probability,regression,sequence,code,settings
+          EOF
+      - name: Checkout atomic
+        uses: actions/checkout@v2
+        with:
+          path: 'apps/atomic'
+      - name: Build
+        run: make -j2 PLATFORM=simulator EPSILON_APPS="atomic settings"
+      - name: Upload
+        uses: actions/upload-artifact@master
+        with:
+          name: epsilon-linux.bin
+          path: output/release/simulator/linux/epsilon.bin
+
