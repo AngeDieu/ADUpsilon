@@ -26,13 +26,13 @@ class KernelHeader {
 public:
   constexpr KernelHeader() :
     m_header(Magic),
-    m_version{EPSILON_VERSION},
+    m_epsilonVersion{EPSILON_VERSION},
     m_patchLevel{PATCH_LEVEL},
     m_footer(Magic) { }
-  const char * version() const {
+  const char * epsilonVersion() const {
     assert(m_header == Magic);
     assert(m_footer == Magic);
-    return m_version;
+    return m_epsilonVersion;
   }
   const char * patchLevel() const {
     assert(m_header == Magic);
@@ -42,7 +42,7 @@ public:
 private:
   constexpr static uint32_t Magic = 0xDEC00DF0;
   uint32_t m_header;
-  const char m_version[8];
+  const char m_epsilonVersion[8];
   const char m_patchLevel[8];
   uint32_t m_footer;
 };
@@ -166,8 +166,8 @@ const volatile char * Ion::username() {
   return k_userlandHeader.username();
 }
 
-const char * Ion::softwareVersion() {
-  return k_kernelHeader.version();
+const char * Ion::epsilonVersion() {
+  return k_kernelHeader.epsilonVersion();
 }
 
 const char * Ion::patchLevel() {

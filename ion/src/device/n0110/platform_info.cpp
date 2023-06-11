@@ -30,7 +30,7 @@ class PlatformInfo {
 public:
   constexpr PlatformInfo() :
     m_header(Magic),
-    m_version{EPSILON_VERSION},
+    m_epsilonVersion{EPSILON_VERSION},
     m_patchLevel{PATCH_LEVEL},
     m_storageAddress(storageAddress),
     m_storageSize(Ion::Storage::k_storageSize),
@@ -47,14 +47,14 @@ public:
     m_UpsilonVersion{UPSILON_VERSION},
     m_osType(OSType),
     m_upsilonMagicFooter(UpsilonMagic) { }
-  const char * version() const {
+  const char * epsilonVersion() const {
     assert(m_storageAddress != nullptr);
     assert(m_storageSize != 0);
     assert(m_header == Magic);
     assert(m_footer == Magic);
     assert(m_omegaMagicHeader == OmegaMagic);
     assert(m_omegaMagicFooter == OmegaMagic);
-    return m_version;
+    return m_epsilonVersion;
   }
   const char * upsilonVersion() const {
     assert(m_storageAddress != nullptr);
@@ -101,7 +101,7 @@ private:
   constexpr static uint32_t UpsilonMagic = 0x55707369;
   constexpr static uint32_t OSType = 0x79827178;
   uint32_t m_header;
-  const char m_version[8];
+  const char m_epsilonVersion[8];
   const char m_patchLevel[8];
   void * m_storageAddress;
   size_t m_storageSize;
@@ -119,8 +119,8 @@ private:
 
 const PlatformInfo HEADER_SECTION platform_infos;
 
-const char * Ion::softwareVersion() {
-  return platform_infos.version();
+const char * Ion::epsilonVersion() {
+  return platform_infos.epsilonVersion();
 }
 
 const char * Ion::upsilonVersion() {

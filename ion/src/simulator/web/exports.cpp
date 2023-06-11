@@ -4,8 +4,8 @@
 #include "../shared/window.h"
 #include <ion.h>
 
-const char * IonSoftwareVersion() {
-  return Ion::softwareVersion();
+const char * IonEpsilonVersion() {
+  return Ion::epsilonVersion();
 }
 
 const char * IonPatchLevel() {
