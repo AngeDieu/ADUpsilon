@@ -52,15 +52,15 @@ bool AboutController::handleEvent(Ion::Events::Event event) {
       return true;
     }
     if (!(event == Ion::Events::Right)) {
-      if (childLabel == I18n::Message::SoftwareVersion) {
+      if (childLabel == I18n::Message::EpsilonVersion) {
         MessageTableCellWithBuffer * myCell = (MessageTableCellWithBuffer *)m_selectableTableView.selectedCell();
         const char * currentText = myCell->accessoryText();
         if (strcmp(currentText, Ion::patchLevel()) == 0) {
           myCell->setAccessoryText(Ion::pcbVersion());
         } else if (strcmp(currentText, Ion::pcbVersion()) == 0) {
-          myCell->setAccessoryText(Ion::softwareVersion());
+          myCell->setAccessoryText(Ion::epsilonVersion());
         } else {
-          assert(strcmp(currentText, Ion::softwareVersion()) == 0);
+          assert(strcmp(currentText, Ion::epsilonVersion()) == 0);
           myCell->setAccessoryText(Ion::patchLevel());
         }
         return true;
@@ -209,7 +209,7 @@ void AboutController::willDisplayCellForIndex(HighlightCell * cell, int index) {
       (const char*) Ion::username(),
       Ion::upsilonVersion(),
       Ion::omegaVersion(),
-      Ion::softwareVersion(),
+      Ion::epsilonVersion(),
       mpVersion,
       batteryLevel,
       "",

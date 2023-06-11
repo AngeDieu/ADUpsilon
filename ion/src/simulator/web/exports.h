@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-const char * IonSoftwareVersion();
+const char * IonEpsilonVersion();
 const char * IonPatchLevel();
 void IonDisplayForceRefresh();
 void IonSimulatorKeyboardKeyDown(int keyNumber);
