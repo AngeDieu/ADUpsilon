@@ -10,7 +10,7 @@ const char * UserlandHeader::version() const {
 }
 
 const bool UserlandHeader::isValid() const {
-  // We only verify only the first Magic Number, to display version such as
+  // We only verify the first Magic Number, to display version such as
   // Epsilon 16 with older UserlandHeader layout
   return m_header == Magic;
 }
