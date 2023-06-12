@@ -52,23 +52,10 @@ bool AboutController::handleEvent(Ion::Events::Event event) {
       return true;
     }
     if (!(event == Ion::Events::Right)) {
-      if (childLabel == I18n::Message::EpsilonVersion) {
-        MessageTableCellWithBuffer * myCell = (MessageTableCellWithBuffer *)m_selectableTableView.selectedCell();
-        const char * currentText = myCell->accessoryText();
-        if (strcmp(currentText, Ion::patchLevel()) == 0) {
-          myCell->setAccessoryText(Ion::pcbVersion());
-        } else if (strcmp(currentText, Ion::pcbVersion()) == 0) {
-          myCell->setAccessoryText(Ion::epsilonVersion());
-        } else {
-          assert(strcmp(currentText, Ion::epsilonVersion()) == 0);
-          myCell->setAccessoryText(Ion::patchLevel());
-        }
-        return true;
-      }
       if (childLabel == I18n::Message::UpsilonVersion) {
         MessageTableCellWithBuffer * myCell = (MessageTableCellWithBuffer *)m_selectableTableView.selectedCell();
         if (strcmp(myCell->accessoryText(), Ion::upsilonVersion()) == 0) {
-          myCell->setAccessoryText(MP_STRINGIFY(OMEGA_STATE)); //Change for public/dev
+          myCell->setAccessoryText(Ion::patchLevel());
           return true;
         }
         myCell->setAccessoryText(Ion::upsilonVersion());
@@ -81,6 +68,15 @@ bool AboutController::handleEvent(Ion::Events::Event event) {
           return true;
         }
         myCell->setAccessoryText(Ion::omegaVersion());
+        return true;
+      }
+      if (childLabel == I18n::Message::EpsilonVersion) {
+        MessageTableCellWithBuffer * myCell = (MessageTableCellWithBuffer *)m_selectableTableView.selectedCell();
+        if (strcmp(myCell->accessoryText(), Ion::epsilonVersion()) == 0) {
+          myCell->setAccessoryText(Ion::pcbVersion());
+          return true;
+        }
+        myCell->setAccessoryText(Ion::epsilonVersion());
         return true;
       }
       if (childLabel == I18n::Message::MemUse) {
