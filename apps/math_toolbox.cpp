@@ -929,7 +929,7 @@ const ToolboxMessageTree menu[] = {
   ToolboxMessageTree::Node(I18n::Message::Combinatorics, combinatoricsChildren),
   ToolboxMessageTree::Node(I18n::Message::RandomAndApproximation, randomAndApproximationChildren),
   ToolboxMessageTree::Node(I18n::Message::HyperbolicTrigonometry, trigonometryChildren),
-  ToolboxMessageTree::Node(I18n::Message::Fluctuation, predictionChildreni)
+  ToolboxMessageTree::Node(I18n::Message::Fluctuation, predictionChildren),
   ToolboxMessageTree::Node(I18n::Message::Physics, Physics),
   ToolboxMessageTree::Node(I18n::Message::Chemistry, chemistry),
   ToolboxMessageTree::Node(I18n::Message::Sii, Sii)
