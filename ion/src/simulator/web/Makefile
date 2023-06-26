@@ -19,6 +19,7 @@ ion_src += $(addprefix ion/src/simulator/web/, \
   journal.cpp \
   keyboard_callback.cpp \
   window_callback.cpp \
+  web.cpp \
 )
 
 ion_src += $(addprefix ion/src/simulator/shared/, \

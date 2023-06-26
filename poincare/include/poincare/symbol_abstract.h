@@ -72,7 +72,11 @@ public:
   bool hasSameNameAs(const SymbolAbstract & other) const;
   static size_t TruncateExtension(char * dst, const char * src, size_t len);
   static bool matches(const SymbolAbstract & symbol, ExpressionTest test, Context * context);
+#ifdef _FXCG
+  constexpr static size_t k_maxNameSize = 16;
+#else
   constexpr static size_t k_maxNameSize = 8;
+#endif
 protected:
   SymbolAbstract(const SymbolAbstractNode * node) : Expression(node) {}
   template <typename T, typename U>

@@ -131,6 +131,7 @@ py_src = $(addprefix python/src/py/,\
 
 extmod_src += $(addprefix python/src/extmod/,\
   modurandom.c \
+  arit.c \
 )
 
 port_src += $(addprefix python/port/,\
@@ -140,8 +141,6 @@ port_src += $(addprefix python/port/,\
   mod/ion/modion.cpp \
   mod/ion/modion_table.cpp \
   mod/ion/file.cpp \
-  mod/escher/modescher.cpp \
-  mod/escher/modescher_table.cpp \
   mod/kandinsky/modkandinsky.cpp \
   mod/kandinsky/modkandinsky_table.c \
   mod/matplotlib/modmatplotlib.cpp \

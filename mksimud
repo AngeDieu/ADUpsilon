@@ -1,0 +1,10 @@
+#! /bin/bash
+# host debug build
+# BEWARE: we need to build python nlr*.o files in release mode
+# otherwise gdb will not work
+# to do that run the release commands and copy nlr*.o files like below
+#make PLATFORM=simulator
+#mkdir -p output/debug/simulator/linux/python/src/py/
+#/bin/cp output/release/simulator/linux/python/src/py/nlr*.o output/debug/simulator/linux/python/src/py/
+make DEBUG=1 PLATFORM=simulator
+

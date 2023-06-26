@@ -26,7 +26,7 @@ public:
   constexpr static size_t k_storageSize = 65500;
 #else
   constexpr static size_t k_storageSize = 60000;
-#endif
+#endif  
   static_assert(UINT16_MAX >= k_storageSize, "record_size_t not big enough");
 
   constexpr static char k_dotChar = '.';

@@ -1,0 +1,105 @@
+for giac link, modify Expression::ParseAndSimplifyAndApproximate in poincare/src/expression.cpp, call caseval if present. At initialization of last_calculation_history in apps/calculation/calculation_store.cpp, init a pointer to caseval if giac overlay is present.
+
+For B&W, use genzehn --input  instead of genzehn --compress --input in build/targets.simulator.nspire.mak
+
+record expression
+#include <poincare/expression.h>
+  Expression e = Expression::Parse("1+2+3+4+5+6+7+8+9+10", nullptr);
+  e.serialize(buf,sizeof(buf))
+
+  modify setExpressionContent ( apps/shared/expression_model.h)
+  and ExpressionFromAddress(const void * address, size_t size); (expression.h)
+
+    e = e.replaceSymbolWithExpression(Symbol::Builder(UCodePointUnknown), Symbol::Builder(symbol));
+
+apps/home/controller.cpp
+ion/src/simulator/fxcg/main.cpp
+
+ion/src/simulator/fxcg/keyboard.cpp : in State scan()
+      // Wait until EXE and MENU are released
+      do {
+        sleep_ms(10);
+        clearevents();
+      } while (keydown(KEY_EXE) || keydown(KEY_MENU));
+
+
+apps/global_preferences.h: m_language 1 au lieu de 0
+ mode radian à régler dans poincare/src/preferences.cpp
+ storage size in ion/include/ion/internal_storage.h (60000 to 65500)
+ more than 65536 would require a 4 bytes field for length 
+ (python heap size is apps/code/app.h)
+ apps/code/app.cpp: declaration at begin
+
+#if defined _FXCG || defined NSPIRE_NEWLIB
+extern "C" int calculator;
+extern "C" const int prizm_heap_size;
+extern "C" char prizm_heap[]; 
+#endif
+
+and
+
+void App::initPythonWithUser(const void * pythonUser) {
+  if (!m_pythonUser) {
+#if defined _FXCG || defined NSPIRE_NEWLIB
+    if (calculator==1)
+      MicroPython::init( (void *) 0x8c200000, (void *)(0x8c200000+ 0x2e0000));
+    else if (calculator>=1 && calculator<=3)
+      MicroPython::init( prizm_heap, prizm_heap+prizm_heap_size);
+    else
+#endif
+      MicroPython::init(m_pythonHeap, m_pythonHeap + k_pythonHeapSize);
+  }
+  m_pythonUser = pythonUser;
+}
+
+ python/src/py/reader.c: #if 1 // MICROPY_READER_POSIX
+
+ python/port/port.cpp
+ add at top
+#ifdef _FXCG
+#include <gint/bfile.h>
+#include <gint/display-cg.h>
+#include <gint/gint.h>
+#include <gint/display.h>
+#include <gint/keyboard.h>
+
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <dirent.h>
+#endif
+
+mp_lexer_t * mp_lexer_new_from_file(const char * filename) {
+  if (sScriptProvider != nullptr) {
+    const char * script = sScriptProvider->contentOfScript(filename, true);
+    if (script != nullptr) {
+      return mp_lexer_new_from_str_len(qstr_from_str(filename), script, strlen(script), 0 /* size_t free_len*/);
+    }
+  }
+#ifdef _FXCG
+  mp_reader_t reader;
+  mp_reader_new_file(&reader, filename);
+  return mp_lexer_new(qstr_from_str(filename), reader);
+#endif
+  mp_raise_OSError(MP_ENOENT);
+}
+
+mp_import_stat_t mp_import_stat(const char *path) {
+  if (sScriptProvider && sScriptProvider->contentOfScript(path, false)) {
+    return MP_IMPORT_STAT_FILE;
+  }
+#ifdef _FXCG
+  FILE * f=fopen(path,"rb");
+  if (f){
+    fclose(f);
+    return MP_IMPORT_STAT_FILE;
+  }
+#endif
+  return MP_IMPORT_STAT_NO_EXIST;
+}
+

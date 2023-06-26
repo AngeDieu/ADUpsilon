@@ -6,6 +6,7 @@
 
 static KDColor sPixels[Ion::Display::Width * Ion::Display::Height];
 static_assert(sizeof(KDColor) == sizeof(uint16_t), "KDColor is not 16 bits");
+//static KDColor* sPixels = (KDColor*) gint_vram;
 static bool sFrameBufferActive = true;
 
 namespace Ion {

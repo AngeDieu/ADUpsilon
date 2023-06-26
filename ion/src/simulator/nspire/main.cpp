@@ -26,6 +26,12 @@ extern "C" {
 
   int main() {
     sdk_init();
+#if 0
+    mkdir("/docments/Xcas",0755);
+    int err=chdir("/documents/Xcas");
+    if (err)
+      err=chdir("/documents/ndless");
+#endif
     Ion::Simulator::Main::init();
     ion_main(0, NULL);
     Ion::Simulator::Main::quit();
@@ -89,7 +95,7 @@ void runPowerOffSafe(void (*powerOffSafeFunction)(), bool prepareVRAM) {
     *(volatile unsigned *)(NSPIRE_CONTRAST_ADDR+4)=oldval2;
   *(volatile unsigned *)NSPIRE_CONTRAST_ADDR=oldval;
   sync_screen();
-
+      
 }
 
 }

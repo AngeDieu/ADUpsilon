@@ -55,21 +55,21 @@ private:
   static_assert(I18n::NumberOfLanguages > 0, "I18n::NumberOfLanguages is not superior to 0"); // There should already have been an error when processing an empty EPSILON_I18N flag
   static_assert(I18n::NumberOfCountries > 0, "I18n::NumberOfCountries is not superior to 0"); // There should already have been an error when processing an empty EPSILON_COUNTRIES flag
   GlobalPreferences() :
-    m_language((I18n::Language)0),
+    m_language((I18n::Language)1),
     m_country((I18n::Country)0),
     m_examMode(ExamMode::Unknown),
     m_tempExamMode(ExamMode::Standard),
-    m_showPopUp(false),
+    m_showPopUp(true),
     m_dfuUnlocked(false),
     m_autoComplete(true),
     m_syntaxhighlighting(true),
     m_brightnessLevel(Ion::Backlight::MaxBrightness),
-    m_idleBeforeSuspendSeconds(45),
-    m_idleBeforeDimmingSeconds(30),
-    m_brightnessShortcut(1),
-    m_externalAppWritePermission(true),
+    m_idleBeforeSuspendSeconds(55),
+    m_idleBeforeDimmingSeconds(45),
+    m_brightnessShortcut(4),
+    m_externalAppWritePermission(false),
     m_externalAppShown(true),
-    m_font(KDFont::SmallFont) {}
+    m_font(KDFont::LargeFont) {}
   I18n::Language m_language;
   I18n::Country m_country;
   static_assert((int8_t)GlobalPreferences::ExamMode::Off == 0, "GlobalPreferences::isInExamMode() is not right");

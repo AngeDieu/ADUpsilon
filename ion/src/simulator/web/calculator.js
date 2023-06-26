@@ -23,7 +23,7 @@ function Calculator(emModule) {
       document.documentElement.lang || window.navigator.language.split('-')[0]
     ],
     onEpsilonIdle: function() {
-      calculatorElement.classList.remove('loading');
+	calculatorElement.classList.remove('loading');
     },
     downloadScreenshot: function() {
       // toDataURL needs the canvas to be refreshed

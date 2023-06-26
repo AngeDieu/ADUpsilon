@@ -1,0 +1,11 @@
+#! /bin/bash
+# nspire build 
+# for B&W model, remove --compress in build/targets.simulator.nspire.mak
+# cross arm debug command inside emacs
+# arm-none-eabi-gdb -i=mi -ex "target remote localhost:3333" epsilon.elf
+make PLATFORM=simulator TARGET=web
+zip casworks.zip xcas_ups.js
+cp casworks.zip /shared
+cd /shared
+unzip -o casworks.zip
+

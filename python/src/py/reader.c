@@ -67,7 +67,7 @@ void mp_reader_new_mem(mp_reader_t *reader, const byte *buf, size_t len, size_t 
     reader->close = mp_reader_mem_close;
 }
 
-#if MICROPY_READER_POSIX
+#if defined _FXCG || defined NSPIRE_NEWLIB || MICROPY_READER_POSIX
 
 #include <sys/stat.h>
 #include <fcntl.h>

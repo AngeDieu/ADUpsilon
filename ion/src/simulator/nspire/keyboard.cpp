@@ -6,6 +6,7 @@
 #include <ion/events.h>
 #include <ion/power.h>
 
+#include "keyboard.h"
 #include "layout_keyboard.h"
 #include "main.h"
 #include "k_csdk.h"
@@ -211,6 +212,7 @@ State scan() {
   if (!any_key_pressed())
     return state;
   if (isKeyPressed(KEY_NSPIRE_HOME)){
+    //exit(1);
     state.setKey(Key::Home); return state;
   }
   if (isKeyPressed(KEY_NSPIRE_ENTER)){
@@ -235,9 +237,16 @@ State scan() {
   }
   int shiftstate;
   int scancode=nspire_scan(&shiftstate);
-  if (scancode==0) {
+  if (scancode==0)
     return state;
-  }
+  //nspire_shift=nspire_ctrl=0;
+#if 0 // debug
+  char buf[80];
+  sprintf(buf,"%i",scancode);
+  os_draw_string(0,0,SDK_WHITE,SDK_BLACK,buf);
+  os_wait_1ms(1000);
+  getkey(0);
+#endif
   switch (scancode){
   case -2: case -1:
     return state;
@@ -254,12 +263,28 @@ State scan() {
   nspire_ctrl=nspire_shift=0;
   for (int i = 0; i < sNumberOfKeyPairs; i++) {
     const KeyPair & keyPair = sKeyPairs[i];
+#if 1
     if (scancode==keyPair.gintKey()) {
       state.setSimulatedShift(keyPair.numworksShift() ? ModSimState::ForceOn : ModSimState::ForceOff);
       state.setSimulatedAlpha(keyPair.numworksAlpha() ? ModSimState::ForceOn : ModSimState::ForceOff);
       state.setKey(keyPair.key());
       return state;
     }
+#else
+    if (!keyPair.ignoreShiftAlpha() &&
+       (keyPair.gintShift() != Events::isShiftActive() ||
+        keyPair.gintAlpha() != Events::isAlphaActive())) {
+      continue;
+    }
+    if (scancode==keyPair.gintKey()) {
+      if (!keyPair.ignoreShiftAlpha()) {
+        state.setSimulatedShift(keyPair.numworksShift() ? ModSimState::ForceOn : ModSimState::ForceOff);
+        state.setSimulatedAlpha(keyPair.numworksAlpha() ? ModSimState::ForceOn : ModSimState::ForceOff);
+      }
+      state.setKey(keyPair.key());
+      return state;
+    }
+#endif
   }
   return state;
 }

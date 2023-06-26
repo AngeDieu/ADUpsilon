@@ -330,7 +330,7 @@ mp_obj_t mp_obj_int_binary_op(mp_binary_op_t op, mp_obj_t lhs_in, mp_obj_t rhs_i
     }
 }
 
-#if MICROPY_PY_BUILTINS_POW3
+#if 1 // MICROPY_PY_BUILTINS_POW3
 STATIC mpz_t *mp_mpz_for_int(mp_obj_t arg, mpz_t *temp) {
     if (mp_obj_is_small_int(arg)) {
         mpz_init_from_int(temp, MP_OBJ_SMALL_INT_VALUE(arg));

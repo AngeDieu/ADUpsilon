@@ -4,6 +4,9 @@
 #include <algorithm>
 #include <stdlib.h>
 
+typedef const char * (*caseval_t)(const char *);
+extern caseval_t caseval;
+
 namespace Poincare {
 
 constexpr const Expression::FunctionHelper * Parser::s_reservedFunctions[];
@@ -51,7 +54,31 @@ bool Parser::IsSpecialIdentifierName(const char * name, size_t nameLength) {
     Token::CompareNonNullTerminatedName(name, nameLength, Unreal::Name())    == 0 ||
     Token::CompareNonNullTerminatedName(name, nameLength, "u")               == 0 ||
     Token::CompareNonNullTerminatedName(name, nameLength, "v")               == 0 ||
-    Token::CompareNonNullTerminatedName(name, nameLength, "w")               == 0
+    Token::CompareNonNullTerminatedName(name, nameLength, "w")==0
+#if 0 // def XCAS
+    || Token::CompareNonNullTerminatedName(name, nameLength, "solve")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "csolve")==0
+    || Token::CompareNonNullTerminatedName(name, nameLength, "partfrac")==0
+    || Token::CompareNonNullTerminatedName(name, nameLength, "limit")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "ptayl")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "subst")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "simplify")== 0
+    || Token::CompareNonNullTerminatedName(name, nameLength, "normal")== 0
+    || Token::CompareNonNullTerminatedName(name, nameLength, "lcm")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "ifactor")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "isprime")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "iegcd")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "irem")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "iquo")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "powmod")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "randmatrix")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "inverse")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "matpow")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "ker")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "rref")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "egv")==0 
+    || Token::CompareNonNullTerminatedName(name, nameLength, "egvl")==0 
+#endif
   );
 }
 
@@ -498,11 +525,17 @@ void Parser::parseCustomIdentifier(Expression & leftHandSide, const char * name,
     return;
   }
   assert(!parameter.isUninitialized());
-  if (parameter.numberOfChildren() != 1) {
-    m_status = Status::Error; // Unexpected number of parameters.
-    return;
+  if (caseval){
+    if (parameter.numberOfChildren() == 1)
+      parameter = parameter.childAtIndex(0);
   }
-  parameter = parameter.childAtIndex(0);
+  else {
+    if (parameter.numberOfChildren() != 1) {
+      m_status = Status::Error; // Unexpected number of paramters.
+      return;
+    }
+    parameter = parameter.childAtIndex(0);
+  }
   if (parameter.type() == ExpressionNode::Type::Symbol && strncmp(static_cast<SymbolAbstract&>(parameter).name(), name, length) == 0) {
     m_status = Status::Error; // Function and variable must have distinct names.
   } else {

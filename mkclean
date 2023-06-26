@@ -1,0 +1,8 @@
+#! /bin/bash
+make PLATFORM=simulator TARGET=fxcg clean
+make PLATFORM=simulator TARGET=nspire clean
+make PLATFORM=simulator TARGET=web clean
+make DEBUG=1 PLATFORM=simulator clean
+make PLATFORM=simulator clean
+make clean
+

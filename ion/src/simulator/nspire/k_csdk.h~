@@ -248,27 +248,6 @@ extern "C" {
     inline void clear_screen(void){os_fill_rect(0,0,LCD_WIDTH_PX,LCD_HEIGHT_PX,SDK_WHITE);}
 #endif
   inline void Bdisp_AllClr_VRAM(void){ clear_screen(); }
-
-  inline int do_getkey(){
-  os_wait_1ms(50);
-  return getkey(0);
-}
-
-  inline void dtext(int x,int y,int fg,const char * s){
-    os_draw_string_medium(x,y,fg,SDK_WHITE,s);
-  }
-  
-  inline void dclear(int c){
-    os_fill_rect(0,0,LCD_WIDTH_PX,LCD_HEIGHT_PX,c);
-  }
-  
-  inline void dupdate(){
-    sync_screen();
-  }
-#define C_WHITE SDK_WHITE
-#define C_BLACK SDK_BLACK
-#define C_RED (31<<11)
-#define C_BLUE 31
   
 #ifdef __cplusplus
 }

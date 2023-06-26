@@ -5,7 +5,10 @@
 namespace Ion {
 namespace Clipboard {
 
-void write(const char * text) {}
+uint32_t localClipboardVersion;
+
+void write(const char * text) {
+}
 
 const char * read() {
   return nullptr;

@@ -43,6 +43,14 @@ sdl_simu_needs_to_be_removed += $(addprefix ion/src/shared/dummy/, \
   power.cpp \
 )
 
+#sdl_simu_needs_to_be_removed += $(addprefix ion/src/simulator/shared/dummy/, \
+#  display.cpp \
+#  led.cpp \
+#  usb.cpp \
+#  battery.cpp \
+#  store_script.cpp \
+#)
+
 # Remove the dummy diaplay (re-implemented) and the SDL simulator stuff.
 ion_src := $(filter-out $(sdl_simu_needs_to_be_removed),$(ion_src))
 

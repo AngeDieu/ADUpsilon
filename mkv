@@ -1,0 +1,4 @@
+#! /bin/bash
+# Casio fxcg50 build with full commands
+make V=1 PLATFORM=simulator TARGET=fxcg >& log
+/bin/cp output/release/simulator/fxcg/epsilon.g3a /shared/tmp

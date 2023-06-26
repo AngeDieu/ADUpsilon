@@ -1,0 +1,7 @@
+#! /bin/bash
+# nspire build with full commands
+# for B&W model, remove --compress in build/targets.simulator.nspire.mak
+# cross arm debug command inside emacs
+# arm-none-eabi-gdb -i=mi -ex "target remote localhost:3333" epsilon.elf
+make V=1 PLATFORM=simulator TARGET=nspire
+/bin/cp upsilon.tns /shared/ndless/ti/ndless
