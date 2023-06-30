@@ -157,11 +157,12 @@ bool App::textInputDidReceiveEvent(InputEventHandler * textInput, Ion::Events::E
 void App::initPythonWithUser(const void * pythonUser) {
   if (!m_pythonUser) {
 #if defined _FXCG || defined NSPIRE_NEWLIB
-    if (calculator==1){ // fxcg50
+    if (calculator == 1) { // fxcg50
       MicroPython::init( (void *) 0x8c200000, (void *)(0x8c200000+ 0x2e0000));
     }
-    else if (calculator>=1 && calculator<=4)
+    else if (calculator >= 1 && calculator <=4 ) {
       MicroPython::init( prizm_heap, prizm_heap+prizm_heap_size);
+    }
     else
 #endif
       MicroPython::init(m_pythonHeap, m_pythonHeap + k_pythonHeapSize);

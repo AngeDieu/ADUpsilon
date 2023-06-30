@@ -392,6 +392,8 @@ const ToolboxMessageTree KandinskyModuleChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandDrawString, I18n::Message::PythonDrawString),
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandDrawLine, I18n::Message::PythonDrawLine),
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandDrawCircle, I18n::Message::PythonDrawCircle),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandDrawImage, I18n::Message::PythonDrawImage),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandImageSize, I18n::Message::PythonImageSize),
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandFillRect, I18n::Message::PythonFillRect),
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandFillCircle, I18n::Message::PythonFillCircle),
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandFillPolygon, I18n::Message::PythonFillPolygon),
@@ -458,9 +460,27 @@ const ToolboxMessageTree IonModuleChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandBatteryIscharging, I18n::Message::PythonBatteryIscharging),
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandSetBrightness, I18n::Message::PythonSetBrightness),
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandGetBrightness, I18n::Message::PythonGetBrightness),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandBlinkLed, I18n::Message::PythonBlinkLed),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandGetKeys, I18n::Message::PythonGetKeys),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandisPlugged, I18n::Message::PythonIsPlugged),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandIsKeyDown, I18n::Message::PythonIsKeyDown),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandIsScreenOn, I18n::Message::PythonIsScreenOn),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandSetBrightness, I18n::Message::PythonSetBrightness),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandSetDFU, I18n::Message::PythonSetDFU),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandSetLEDColor, I18n::Message::PythonSetLEDColor),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandScreenOff, I18n::Message::PythonScreenOff),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandScreenOn, I18n::Message::PythonScreenOn),
   // This is a special case, because it is handled separately, so the sub-tree is unused.
   ToolboxMessageTree::Node(I18n::Message::IonSelector, IonKeyModuleChildren),
   ToolboxMessageTree::Node(I18n::Message::IonKeyList, IonKeyModuleChildren)
+};
+
+const ToolboxMessageTree EscherModuleChildren[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandImportEscher, I18n::Message::PythonImportEscher, false),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandImportFromEscher, I18n::Message::PythonImportEscher, false),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandEscherFunction, I18n::Message::PythonEscherFunction, false, I18n::Message::PythonCommandEscherFunctionWithoutArg),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandSetClipboard, I18n::Message::PythonSetClipboard),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandGetClipboard, I18n::Message::PythonGetClipboard)
 };
 
 const ToolboxMessageTree TimeModuleChildren[] = {
@@ -515,6 +535,7 @@ const ToolboxMessageTree modulesChildren[] = {
   ToolboxMessageTree::Node(I18n::Message::RandomModule, RandomModuleChildren),
   ToolboxMessageTree::Node(I18n::Message::KandinskyModule, KandinskyModuleChildren),
   ToolboxMessageTree::Node(I18n::Message::IonModule, IonModuleChildren),
+  ToolboxMessageTree::Node(I18n::Message::EscherModule, EscherModuleChildren),
   ToolboxMessageTree::Node(I18n::Message::OsModule, OsModuleChildren),
 #if MICROPY_PY_SYS
   ToolboxMessageTree::Node(I18n::Message::SysModule, SysModuleChildren),
@@ -614,6 +635,7 @@ const ToolboxMessageTree catalogChildren[] = {
 #ifdef XCAS
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandGcd, I18n::Message::PythonGcd),
 #endif
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandGetPixel, I18n::Message::PythonGetPixel),
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandGetrandbits, I18n::Message::PythonGetrandbits),
   ToolboxMessageTree::Leaf(I18n::Message::PythonTurtleCommandGoto, I18n::Message::PythonTurtleGoto),
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandColorGray, I18n::Message::PythonColorGray, false),
